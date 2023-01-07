@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/master}">
+    
+    <section layout:fragment="css">
+        <link rel="stylesheet" th:href="@{custom.css}"/>
+    </section>
+    
+    <section layout:fragment="content">
+        <div class="container">
+            <h1>Students list</h1>
+            <a th:href="@{/students/create}"><button class="btn btn-info my-4">Add Student</button></a>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${students == null or students.empty}">
+                        No content available.
+                    </tr>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.firstName}"></td>
+                        <td th:text="${student.lastName}"></td>
+                        <td th:text="${student.email}"></td>
+                        <td width="15%">
+                            <a th:href="@{/students/edit/{id}(id=${student.id})}"><button class="btn btn-warning btn-sm text-light">Edit</button></a>
+                            <a th:href="@{/students/delete/{id}(id=${student.id})}"><button class="btn btn-danger btn-sm text-light">Remove</button></a>
+                        </td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</html>
